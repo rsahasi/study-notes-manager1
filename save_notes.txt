@@ -1,3 +1,0 @@
-testnote 1
-testnote2
-testnote3
