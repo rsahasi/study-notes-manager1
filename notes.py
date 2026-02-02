@@ -38,7 +38,7 @@ def remove_note(note_num: str) -> bool:
             return False
  
         notes_with_ids = db.get_all_notes_with_ids()
-        note_text = next((text for nid, text in notes_with_ids if nid == note_id), "Unknown")
+        note_text = next((text for nid, text, created_at in notes_with_ids if nid == note_id), "Unknown")
         
         if db.delete_note_by_id(note_id):
             print(f"Removed: {note_text}")

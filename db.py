@@ -61,5 +61,14 @@ def get_all_notes_with_ids(db_path: str = DB_PATH) -> List[tuple[int, str]]:
     """Get all notes with their IDs. Returns list of (id, text) tuples."""
     init_db(db_path)
     with sqlite3.connect(db_path) as conn:
-        cursor = conn.execute("SELECT id, text FROM notes ORDER BY id")
+        cursor = conn.execute("SELECT id, text, created_at FROM notes ORDER BY id")
         return cursor.fetchall()
+
+def get_note_by_id(note_id: int, db_path: str = DB_PATH) -> tuple[int, str, str] | None:
+    init_db(db_path)
+    with sqlite3.connect(db_path) as conn:
+        cursor = conn.execute(
+            "SELECT id, text, created_at FROM notes WHERE id = ?",
+            (note_id,)
+        )
+        return cursor.fetchone()
